@@ -91,4 +91,3 @@ export function toClassList(str /*: string | string[] */) /*: string[] */ {
     { code: 'MALFORMED_CLASSNAME', input: str }
   )
 }
-

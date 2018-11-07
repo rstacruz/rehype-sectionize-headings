@@ -1,7 +1,7 @@
 /* @jsx h */
 /* eslint-env jest */
 
-import wrap, { wrapH2, wrapH3 } from '../index'
+import wrap, { wrapH2, wrapH3 } from '../src/index'
 import h from 'hastscript'
 
 import render from 'hast-util-to-html'

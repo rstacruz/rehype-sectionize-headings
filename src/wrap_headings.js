@@ -1,4 +1,4 @@
-import { getClassName, updateLast, appendChild } from './lib/hast_helpers'
+import { getClassName, updateLast, appendChild } from './hast_helpers'
 
 /**
  * Wraps headings.

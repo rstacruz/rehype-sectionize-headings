@@ -2,6 +2,7 @@
   "name": "rehype-sectionize-headings",
   "version": "1.0.0-rc.1",
   "devDependencies": {
+    "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.5",
     "@babel/plugin-transform-react-jsx": "^7.0.0",
     "@babel/preset-env": "^7.1.5",
@@ -15,11 +16,17 @@
     "rehype-stringify": "^4.0.0"
   },
   "license": "MIT",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "jest",
     "lint": "eslint '*.js'",
     "prettier:fix": "prettier --write '*.js'",
-    "prettier:check": "prettier --list-different '*.js'"
-  }
+    "prettier:check": "prettier --list-different '*.js'",
+    "build": "babel src -d lib",
+    "watch": "babel src -d lib --watch --verbose"
+  },
+  "files": [
+    "lib",
+    "src"
+  ]
 }

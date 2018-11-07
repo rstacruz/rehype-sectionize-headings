@@ -2,7 +2,7 @@ import {
   updateLastChild,
   updateChildren,
   toClassList
-} from './lib/hast_helpers'
+} from './hast_helpers'
 
 import wrapHeadings from './wrap_headings'
 
