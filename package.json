@@ -1,13 +1,25 @@
 {
-  "name": "rehype-wrapify",
-  "version": "0.1.0",
+  "name": "rehype-sectionize-headings",
+  "version": "1.0.0-rc.1",
   "devDependencies": {
-    "jest": "^23.6.0"
+    "@babel/core": "^7.1.5",
+    "@babel/plugin-transform-react-jsx": "^7.0.0",
+    "@babel/preset-env": "^7.1.5",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "eslint": "^5.8.0",
+    "hast-util-to-html": "^4.0.1",
+    "hastscript": "^4.1.0",
+    "jest": "^23.6.0",
+    "prettier": "^1.15.1",
+    "rehype-stringify": "^4.0.0"
   },
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
-  },
-  "private": true
+    "test": "jest",
+    "lint": "eslint '*.js'",
+    "prettier:fix": "prettier --write '*.js'",
+    "prettier:check": "prettier --list-different '*.js'"
+  }
 }
