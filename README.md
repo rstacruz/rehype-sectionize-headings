@@ -16,6 +16,8 @@ Separates headings into sections in Rehype
 
 <br>
 
+`rehype-sectionize-headings` Creates sections based on h2 and h3 headings in Rehype.
+
 ## Usage
 
 To wrap h2's and h3's:

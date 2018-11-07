@@ -1,6 +1,10 @@
 {
   "name": "rehype-sectionize-headings",
+  "description": "Create sections based on h2 and h3 headings in Rehype",
   "version": "1.0.0-rc.1",
+  "bugs": {
+    "url": "https://github.com/rstacruz/rehype-sectionize-headings/issues"
+  },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.5",
@@ -15,18 +19,27 @@
     "prettier": "^1.15.1",
     "rehype-stringify": "^4.0.0"
   },
-  "license": "MIT",
-  "main": "lib/index.js",
-  "scripts": {
-    "test": "jest",
-    "lint": "eslint '*.js'",
-    "prettier:fix": "prettier --write '*.js'",
-    "prettier:check": "prettier --list-different '*.js'",
-    "build": "babel src -d lib",
-    "watch": "babel src -d lib --watch --verbose"
+  "directories": {
+    "lib": "lib"
   },
   "files": [
     "lib",
     "src"
-  ]
+  ],
+  "homepage": "https://github.com/rstacruz/rehype-sectionize-headings#readme",
+  "keywords": ["rehype"],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rstacruz/rehype-sectionize-headings.git"
+  },
+  "scripts": {
+    "build": "babel src -d lib",
+    "lint": "eslint '*.js'",
+    "prettier:check": "prettier --list-different '*.js'",
+    "prettier:fix": "prettier --write '*.js'",
+    "test": "jest",
+    "watch": "babel src -d lib --watch --verbose"
+  }
 }
