@@ -1,21 +1,68 @@
 import {
-  getClassName,
   updateLastChild,
-  updateLast,
   updateChildren,
-  appendChild
+  toClassList
 } from './lib/hast_helpers'
 
+import wrapHeadings from './wrap_headings'
+
+/*::
+  export type WrapOptions = {
+    sectionClass: string[],
+    bodyClass: string[]
+  }
+
+  export type Options = {
+    h2: WrapOptions,
+    h3: WrapOptions
+  }
+*/
+
 /**
- * Wrap everything.
+ * Default settings for `wrapH2()` and `wrapH3()`.
  */
 
-export default function(root) {
-  root = wrapH2(root)
+const DEFAULTS = {
+  h2: {
+    sectionClass: ['h2-section'],
+    bodyClass: ['body', 'h3-section-list']
+  },
+
+  h3: {
+    sectionClass: ['h3-section'],
+    bodyClass: ['body']
+  }
+}
+
+/**
+ * Wrap everything with the default settings used by devhints.io.
+ *
+ * @example
+ * This wraps with default settings:
+ *
+ *     hast = wrap(hast)
+ *
+ * @example
+ * You can also specify class names like so:
+ *
+ *     hast = wrap(hast, {
+ *       h2: {
+ *         sectionClass: ['h2-section'],
+ *         bodyClass: ['body']
+ *       },
+ *       h3: {
+ *         sectionClass: ['h3-section'],
+ *         bodyClass: ['body']
+ *       }
+ *     })
+ */
+
+export default function(root, options = {} /*: Options */) {
+  root = wrapH2(root, options.h2)
 
   root = updateChildren(root, children =>
     (children || []).map(section =>
-      updateLastChild(section, body => wrapH3(body))
+      updateLastChild(section, body => wrapH3(body, options.h3))
     )
   )
 
@@ -26,11 +73,13 @@ export default function(root) {
  * Wrap H2 headings.
  */
 
-export function wrapH2(root) {
-  return wrapify(root, {
+export function wrapH2(root, options /*: WrapOptions */) {
+  const { sectionClass, bodyClass } = { ...DEFAULTS.h2, ...options }
+
+  return wrapHeadings(root, {
     tagName: 'h2',
-    sectionClass: ['h2-section'],
-    bodyClass: ['body', 'h3-section-list']
+    sectionClass: toClassList(sectionClass),
+    bodyClass: toClassList(bodyClass)
   })
 }
 
@@ -38,53 +87,14 @@ export function wrapH2(root) {
  * Wraps H3 headings.
  */
 
-export function wrapH3(root) {
-  return wrapify(root, {
+export function wrapH3(root, options /*: WrapOptions */) {
+  const { sectionClass, bodyClass } = { ...DEFAULTS.h3, ...options }
+
+  return wrapHeadings(root, {
     tagName: 'h3',
-    sectionClass: ['h3-section'],
-    bodyClass: ['body']
+    sectionClass: toClassList(sectionClass),
+    bodyClass: toClassList(bodyClass)
   })
 }
 
-/**
- * Wraps headings.
- */
-
-export function wrapify(
-  root,
-  { tagName = 'h2', sectionClass = ['h2-section'], bodyClass = ['body'] } = {}
-) {
-  const children = root.children.reduce((list, node) => {
-    if (node.tagName === tagName) {
-      // H2 heading - create a new `.h2-section`.
-      const extraClass = getClassName(node)
-      const body = wrapper([...bodyClass, extraClass], [])
-      return [...list, wrapper([...sectionClass, extraClass], [node, body])]
-    } else if (list.length) {
-      // Not prelude
-      return updateLast(list, last => ({
-        ...last,
-        children: updateLast(last.children, body => appendChild(body, node))
-      }))
-    } else {
-      // Prelude
-      const body = wrapper(bodyClass, [node])
-      return [wrapper(sectionClass, [body])]
-    }
-  }, [])
-
-  return { ...root, children }
-}
-
-/**
- * Creates a wrapper element.
- */
-
-function wrapper(className /*: Array<string> */, children /*: HastNodeList */) {
-  return {
-    type: 'element',
-    tagName: 'div',
-    properties: { className },
-    children
-  }
-}
+export { default as wrapHeadings } from './wrap_headings'
