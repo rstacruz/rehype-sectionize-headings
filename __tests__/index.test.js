@@ -1,14 +1,11 @@
-/* @jsx hJsx */
+/* @jsx h */
 /* eslint-env jest */
 
-import React from 'react'
 import wrap, { wrapH2, wrapH3 } from '../index'
-import h from 'hastscript'
+import hast from 'hastscript'
 
-/* eslint-disable no-unused-vars */
-import hJsx from '../lib/helpers/h_jsx'
-import render from '../lib/helpers/hast_to_react'
-/* eslint-enable no-unused-vars */
+import render from 'hast-util-to-html'
+const h = (name, props, ...kids) => hast(name, props, kids)
 
 /*
  * Test wrapping h2
