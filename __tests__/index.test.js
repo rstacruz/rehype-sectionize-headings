@@ -2,10 +2,9 @@
 /* eslint-env jest */
 
 import wrap, { wrapH2, wrapH3 } from '../index'
-import hast from 'hastscript'
+import h from 'hastscript'
 
 import render from 'hast-util-to-html'
-const h = (name, props, ...kids) => hast(name, props, kids)
 
 /*
  * Test wrapping h2
