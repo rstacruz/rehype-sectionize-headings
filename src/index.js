@@ -1,8 +1,4 @@
-import {
-  updateLastChild,
-  updateChildren,
-  toClassList
-} from './hast_helpers'
+import { updateLastChild, updateChildren, toClassList } from './hast_helpers'
 
 import wrapHeadings from './wrap_headings'
 

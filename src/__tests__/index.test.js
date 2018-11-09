@@ -1,9 +1,8 @@
 /* @jsx h */
 /* eslint-env jest */
 
-import wrap, { wrapH2, wrapH3 } from '../src/index'
+import wrap, { wrapH2, wrapH3 } from '../index'
 import h from 'hastscript'
-
 import render from 'hast-util-to-html'
 
 /*
@@ -182,21 +181,43 @@ describe('wrapAll', () => {
       </div>
     )
 
-    const expected = h('div', [
-      h('.h2-section', [
-        h('h2', 'Intro'),
-        h('.body.h3-section-list', [
-          h('.h3-section.one', [
-            h('h3.one', 'Installation'),
-            h('.body.one', [h('p', '(hello)')])
-          ]),
-          h('.h3-section.two', [
-            h('h3.two', 'Usage'),
-            h('.body.two', [h('p', '(world)')]) // Including the body?
-          ])
-        ])
-      ])
-    ])
+    const expected = (
+      <div>
+        <div className="h2-section">
+          <h2>Intro</h2>
+          <div className="body h3-section-list">
+            <div className="h3-section one">
+              <h3 className="one">Installation</h3>
+              <div className="body one">
+                <p>(hello)</p>
+              </div>
+            </div>
+            <div className="h3-section two">
+              <h3 className="two">Usage</h3>
+              <div className="body two">
+                <p>(world)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+
+    // const expected = h('div', [
+    //   h('.h2-section', [
+    //     h('h2', 'Intro'),
+    //     h('.body.h3-section-list', [
+    //       h('.h3-section.one', [
+    //         h('h3.one', 'Installation'),
+    //         h('.body.one', [h('p', '(hello)')])
+    //       ]),
+    //       h('.h3-section.two', [
+    //         h('h3.two', 'Usage'),
+    //         h('.body.two', [h('p', '(world)')]) // Including the body?
+    //       ])
+    //     ])
+    //   ])
+    // ])
 
     const output = wrap(input)
     expect(render(output)).toEqual(render(expected))
