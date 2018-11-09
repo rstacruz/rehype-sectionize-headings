@@ -153,18 +153,27 @@ describe('wrapAll', () => {
       </div>
     )
 
-    const expected = h('div', [
-      h('.h2-section', [
-        h('h2', 'Intro'),
-        h('.body.h3-section-list', [
-          h('.h3-section', [
-            h('h3', 'Installation'),
-            h('.body', [h('p', '(hello)')])
-          ]),
-          h('.h3-section', [h('h3', 'Usage'), h('.body', [h('p', '(world)')])])
-        ])
-      ])
-    ])
+    const expected = (
+      <div>
+        <div className="h2-section">
+          <h2>Intro</h2>
+          <div className="body h3-section-list">
+            <div className="h3-section">
+              <h3>Installation</h3>
+              <div className="body">
+                <p>(hello)</p>
+              </div>
+            </div>
+            <div className="h3-section">
+              <h3>Usage</h3>
+              <div className="body">
+                <p>(world)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
 
     const output = wrap(input)
     expect(render(output)).toEqual(render(expected))
@@ -202,22 +211,6 @@ describe('wrapAll', () => {
         </div>
       </div>
     )
-
-    // const expected = h('div', [
-    //   h('.h2-section', [
-    //     h('h2', 'Intro'),
-    //     h('.body.h3-section-list', [
-    //       h('.h3-section.one', [
-    //         h('h3.one', 'Installation'),
-    //         h('.body.one', [h('p', '(hello)')])
-    //       ]),
-    //       h('.h3-section.two', [
-    //         h('h3.two', 'Usage'),
-    //         h('.body.two', [h('p', '(world)')]) // Including the body?
-    //       ])
-    //     ])
-    //   ])
-    // ])
 
     const output = wrap(input)
     expect(render(output)).toEqual(render(expected))
