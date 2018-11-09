@@ -25,7 +25,7 @@ module.exports = {
   },
 
   // == Enables parser for Flow annotatinos
-  // parser: 'babel-eslint',
+  parser: 'babel-eslint',
 
   rules: {
     // == Disable React proptypes in favor of using Flow

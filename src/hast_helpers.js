@@ -1,27 +1,11 @@
-// @flow
-
-/*::
-  export type HastType = 'comment' | 'element' | 'text'
-
-  export type HastNode = {
-    type: HastType,
-    tagName?: string,
-    value?: string,
-    properties: Object,
-    children?: HastNodeList
-  }
-
-  export type HastNodeList = Array<HastNode>
-*/
-
-// htmlAst = {
-//   type: 'element'
-//   tagName: 'h2'
-//   properties: {}
-//   children: []
-// }
-// { type: 'comment', value: 'sup' }
-// { type: 'text', value: 'hello' }
+/*
+ * Hast helpers
+ * ============
+ *
+ * These are some utility functions that deal with Hast nodes.
+ *
+ * @flow
+ */
 
 /**
  * Returns the class name of a HAST node.
@@ -39,7 +23,7 @@ export function updateLastChild(
   node /*: HastNode */,
   fn /*: HastNode => HastNode */
 ) {
-  const children /*: HastNodeList */ = node.children || []
+  const children /*: HastNode[] */ = node.children || []
   return { ...node, children: updateLast(children, fn) }
 }
 
@@ -48,11 +32,11 @@ export function updateLastChild(
  */
 
 export function updateLast(
-  list /*: HastNodeList */,
+  list /*: HastNode[] */,
   fn /*: HastNode => HastNode */
 ) {
   if (list.length === 0) return []
-  const head /*: HastNodeList */ = list.slice(0, list.length - 1)
+  const head /*: HastNode[] */ = list.slice(0, list.length - 1)
   const item /*: HastNode */ = list[list.length - 1]
   return [...head, fn(item)]
 }
@@ -63,7 +47,7 @@ export function updateLast(
 
 export function updateChildren(
   node /*: HastNode */,
-  fn /*: HastNodeList => HastNodeList */
+  fn /*: HastNode[] => HastNode[] */
 ) {
   const children = fn(node.children || [])
   return { ...node, children }

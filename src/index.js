@@ -1,3 +1,8 @@
+/*
+ * react-sectionize-headings
+ * =========================
+ */
+
 import { updateLastChild, updateChildren, toClassList } from './hast_helpers'
 
 import wrapHeadings from './wrap_headings'
@@ -14,8 +19,7 @@ import wrapHeadings from './wrap_headings'
   }
 */
 
-/**
- * Default settings for `wrapH2()` and `wrapH3()`.
+/** Default settings for `wrapH2()` and `wrapH3()`.
  */
 
 const DEFAULTS = {
