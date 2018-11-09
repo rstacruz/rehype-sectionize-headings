@@ -27,7 +27,9 @@
     "src"
   ],
   "homepage": "https://github.com/rstacruz/rehype-sectionize-headings#readme",
-  "keywords": ["rehype"],
+  "keywords": [
+    "rehype"
+  ],
   "license": "MIT",
   "main": "lib/index.js",
   "repository": {
@@ -37,6 +39,7 @@
   "scripts": {
     "build": "babel src -d lib",
     "lint": "eslint '*.js'",
+    "prepare": "npm run build",
     "prettier:check": "prettier --list-different '*.js'",
     "prettier:fix": "prettier --write '*.js'",
     "test": "jest",
