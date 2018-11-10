@@ -215,4 +215,44 @@ describe('wrapAll', () => {
     const output = wrap(input)
     expect(render(output)).toEqual(render(expected))
   })
+
+  it('custom sectionTag', () => {
+    const input = (
+      <div>
+        <h2>Intro</h2>
+        <h3 className="one">Installation</h3>
+        <p>(hello)</p>
+        <h3 className="two">Usage</h3>
+        <p>(world)</p>
+      </div>
+    )
+
+    const expected = (
+      <div>
+        <section className="h2-section">
+          <h2>Intro</h2>
+          <div className="body h3-section-list">
+            <aside className="h3-section one">
+              <h3 className="one">Installation</h3>
+              <div className="body one">
+                <p>(hello)</p>
+              </div>
+            </aside>
+            <aside className="h3-section two">
+              <h3 className="two">Usage</h3>
+              <div className="body two">
+                <p>(world)</p>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </div>
+    )
+
+    const output = wrap(input, {
+      h2: { sectionTag: 'section' },
+      h3: { sectionTag: 'aside' }
+    })
+    expect(render(output)).toEqual(render(expected))
+  })
 })

@@ -1,3 +1,4 @@
+// @flow
 import { getClassName, updateLast, appendChild } from './hast_helpers'
 
 /**
@@ -12,14 +13,23 @@ import { getClassName, updateLast, appendChild } from './hast_helpers'
 
 export default function wrapHeadings(
   root,
-  { tagName = 'h2', sectionClass = ['h2-section'], bodyClass = ['body'] } = {}
+  {
+    tagName = 'h2',
+    sectionTag = 'div',
+    sectionClass = ['h2-section'],
+    bodyTag = 'div',
+    bodyClass = ['body']
+  } = {}
 ) {
   const children = root.children.reduce((list, node) => {
     if (node.tagName === tagName) {
       // H2 heading - create a new `.h2-section`.
       const extraClass = getClassName(node)
-      const body = wrapper([...bodyClass, extraClass], [])
-      return [...list, wrapper([...sectionClass, extraClass], [node, body])]
+      const body = wrapper(bodyTag, [...bodyClass, extraClass], [])
+      return [
+        ...list,
+        wrapper(sectionTag, [...sectionClass, extraClass], [node, body])
+      ]
     } else if (list.length) {
       // Not prelude
       return updateLast(list, last => ({
@@ -28,8 +38,8 @@ export default function wrapHeadings(
       }))
     } else {
       // Prelude
-      const body = wrapper(bodyClass, [node])
-      return [wrapper(sectionClass, [body])]
+      const body = wrapper(bodyTag, bodyClass, [node])
+      return [wrapper(sectionTag, sectionClass, [body])]
     }
   }, [])
 
@@ -40,10 +50,10 @@ export default function wrapHeadings(
  * Creates a wrapper element.
  */
 
-function wrapper(className /*: string[] */, children /*: HastNodeList */) {
+function wrapper(tag: string, className: string[], children: HastNode[]) {
   return {
     type: 'element',
-    tagName: 'div',
+    tagName: tag,
     properties: { className },
     children
   }

@@ -24,12 +24,16 @@ import wrapHeadings from './wrap_headings'
 
 const DEFAULTS = {
   h2: {
+    sectionTag: 'div',
     sectionClass: ['h2-section'],
+    bodyTag: 'div',
     bodyClass: ['body', 'h3-section-list']
   },
 
   h3: {
+    sectionTag: 'div',
     sectionClass: ['h3-section'],
+    bodyTag: 'div',
     bodyClass: ['body']
   }
 }
@@ -77,6 +81,7 @@ export function wrapH2(root, options /*: WrapOptions */) {
   const { sectionClass, bodyClass } = { ...DEFAULTS.h2, ...options }
 
   return wrapHeadings(root, {
+    ...options,
     tagName: 'h2',
     sectionClass: toClassList(sectionClass),
     bodyClass: toClassList(bodyClass)
@@ -91,6 +96,7 @@ export function wrapH3(root, options /*: WrapOptions */) {
   const { sectionClass, bodyClass } = { ...DEFAULTS.h3, ...options }
 
   return wrapHeadings(root, {
+    ...options,
     tagName: 'h3',
     sectionClass: toClassList(sectionClass),
     bodyClass: toClassList(bodyClass)
